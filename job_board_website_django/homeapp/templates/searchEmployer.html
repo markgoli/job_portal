@@ -1,0 +1,163 @@
+<html>
+    <head>
+        {% load static %}
+        <title>
+        {{app}}
+        </title>
+        <style>
+            body{
+                margin: 10px;
+                padding: 5px;
+                background-color: rgba(237, 240, 243, 0.863);
+                /* background-image: url('{% static "search.jpeg" %}'); */
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            .container1{
+                display: inline;
+                flex-direction: column;
+                flex-wrap: wrap;
+                color: blue;
+                margin: 10px 0px;
+                padding: 10px 20px;
+            }
+
+
+ 
+            .header{
+                color: white;
+                font-size: 20px;
+                margin: 5px;
+                padding: 10px;
+                align-items: center;
+                text-align: center;
+                font-family: Tempus Sans ITC;
+                background-color: green;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+            }
+            .form0{
+                margin: 0 20px 0 0;
+                align-items: center;
+                padding: auto;
+                display: flex;
+                justify-content: space-between;
+            }
+            .form{
+                align-items: center;
+                margin: 5px;
+                padding: 5px;
+                font-size: 15px;
+                font-weight: bold;
+                /* background-color: rgb(202, 202, 216); */
+                display: flex;
+                flex-direction: row;
+                position: relative;
+                width: calc(100% / 2 - 20px);
+	            margin: 20px 0 12px 0;
+            }
+            .butt{
+                font-family: Tempus Sans ITC;
+                padding: 10px;
+                margin: top 10px;;
+            }
+            button{
+                padding: 5px;
+                text-decoration: none;
+            }
+            
+            table{
+                border: 1px solid;
+                border-collapse:collapse;
+                padding: 5px;
+                color: rgb(17, 18, 19);  
+                width: 100%;
+            }
+            th {
+                width: 2%;
+                height: 50px;
+                text-align: center;
+                /* color: cornsilk; */
+                font-weight: 500;
+                font-family: 'Roboto';
+                background-color: #04AA6D;
+                color: white;
+
+            }
+            tr:hover {background-color: rgb(232, 235, 238);}
+            tr:nth-child(even) {background-color: rgb(193, 197, 206);}
+
+            td {
+                /* width: 10%; */
+                height: 30px;
+                vertical-align: bottom;
+                text-align: center;
+                font-family: 'Roboto';
+            }
+            a{
+                text-decoration:none;
+            }
+
+
+
+        </style>
+    </head>
+    <body>
+        <div class="container1" >
+            <div class="header">
+                <div><h1>POST JOBS HERE.</h1></div>
+                <div class="user"> AdminID: {{user}}</div>
+            </div>
+            
+            <div class="form0">
+
+                <button ><a href = "add_job/"><font color = "green" size = "4" >Add New Jobs</font></a></center></button>
+                <div class="form">
+                    <form action = "." method = "POST">
+                        {% csrf_token %}  
+                        {{ form.as_p }}
+    
+                        <input type = "submit" value ="Search">
+                    <form>
+                </div>
+                <button><a href = "{% url 'home_url' %}"><font color = "red" size = "4" >Logout</font></a><br></button>
+            </div>
+            
+            <div class="table">
+
+                <table>
+                    <tr>
+                        <th>No.</th>
+                        <th>Title</th>
+                        <th>Profession</th>
+                        <th>Company</th>            
+                        <th>Publication Date</th>
+                        <th>Available</th>
+                        <th>Description</th>
+                    <tr>
+
+                    {% for job in query_set %}
+                        <tr>
+                        <td>{{ job.job_id }}</td>
+                        <td>{{ job.job_title }}</td>
+                        <td>{{ job.job_subject_area }}</td>
+                        <td>{{ job.company }}</td>
+                        <td>{{ job.job_publication_date }}</td>
+                        <td>{{ job.job_availability }}</td>
+                        <td>{{ job.job_description }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="butt">
+                
+                
+            </div>
+            
+        </div>
+    </body>
+</html>
